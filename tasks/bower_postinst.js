@@ -30,7 +30,8 @@ module.exports = function(grunt) {
                     'jake' : [],
                     'make' : ['install']
                 },
-                components : []
+                components : [],
+                unspaceArgs: true
             });
             
         /**
@@ -98,7 +99,7 @@ module.exports = function(grunt) {
                 stack = stack.map(function spawnableStack(item){
                     return function(callback){
                         if(_.isArray(item) && item.length > 0){
-                            var action = unspaceArgs(item);
+                            var action = options.unspaceArgs ? unspaceArgs(item) : item;
                             var cmd = (isWin) ? 'cmd' : action[0];
                             var args = (isWin) ? ['/c'].concat(action) : action.slice(1);
                             
